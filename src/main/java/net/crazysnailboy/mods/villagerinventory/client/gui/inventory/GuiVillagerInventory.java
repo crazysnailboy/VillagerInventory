@@ -10,7 +10,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -40,9 +39,6 @@ public class GuiVillagerInventory extends GuiContainer
 		System.out.println("readVillagerFromNBT");
 		
 		this.villagerEntity.readEntityFromNBT(compound);
-		
-//		int careerId = ((Integer)(ObfuscationReflectionHelper.getPrivateValue(EntityVillager.class, this.villagerEntity, "careerId", "field_175563_bv"))).intValue(); // TODO so could this..
-//		System.out.println("careerId = " + careerId);
 	}
 	
 	
@@ -53,11 +49,10 @@ public class GuiVillagerInventory extends GuiContainer
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) 
 	{
 		// write the villager career at the top of the gui
-		this.fontRendererObj.drawString(this.villagerInventory.getName(), 8, 6, 4210752);
-//		this.fontRendererObj.drawString(this.villagerEntity.getDisplayName().getUnformattedText(), 8, 6, 4210752);
+		this.fontRenderer.drawString(this.villagerInventory.getName(), 8, 6, 4210752);
 		
 		// write "inventory" above the player inventory
-		this.fontRendererObj.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
+		this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
 	}
 	
 	
@@ -78,11 +73,4 @@ public class GuiVillagerInventory extends GuiContainer
 		this.drawTexturedModalRect(guiX, guiY, 0, 0, this.xSize, this.ySize);
 	}
 
-	
-//	@Override
-//	public void drawScreen(int mouseX, int mouseY, float partialTicks)
-//	{
-//		super.drawScreen(mouseX, mouseY, partialTicks);
-//	}
-	
 }

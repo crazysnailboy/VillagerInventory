@@ -54,7 +54,7 @@ public class VillagerCareerMessage implements IMessage
 		public IMessage onMessage(final VillagerCareerMessage message, MessageContext ctx) 
 		{
 			Minecraft minecraft = Minecraft.getMinecraft();
-			final WorldClient world = minecraft.theWorld;
+			final WorldClient world = minecraft.world;
 			
 			minecraft.addScheduledTask(new Runnable()
 			{
@@ -76,40 +76,17 @@ public class VillagerCareerMessage implements IMessage
 						compound.setInteger("Career", message.careerId);
 						villager.readEntityFromNBT(compound);
 						
-						// set the careerId field as well, since this is what drives the 						
-//						ObfuscationReflectionHelper.setPrivateValue(EntityVillager.class, villager, message.careerId, "careerId", "field_175563_bv");
-
-						
-						
 						GuiScreen currentScreen = Minecraft.getMinecraft().currentScreen; 
-//						System.out.println("currentScreen: " + (currentScreen == null ? "null" : currentScreen.getClass().getCanonicalName()));
-						
 						if (currentScreen != null && currentScreen instanceof GuiVillagerInventory)
 						{
 							((GuiVillagerInventory)currentScreen).readVillagerFromNBT(compound);
 						}
-						
-//						int careerId = ((Integer)(ObfuscationReflectionHelper.getPrivateValue(EntityVillager.class, villager, "careerId", "field_175563_bv"))).intValue(); // TODO so could this..
-						
 					}
-					
-					
-					
 				}
 			});
 			
 			return null;
 		}
-		
-//		void processMessage(WorldClient worldClient, VillagerCareerMessage message)
-//		{
-//			GuiScreen currentScreen = Minecraft.getMinecraft().currentScreen; 
-//			
-//			System.out.println("currentScreen: " + (currentScreen == null ? "null" : currentScreen.getClass().getCanonicalName()));
-//			
-//			
-//			
-//		}
 		
 	}
 

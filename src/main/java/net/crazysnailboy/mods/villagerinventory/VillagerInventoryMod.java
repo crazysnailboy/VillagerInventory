@@ -119,7 +119,7 @@ public class VillagerInventoryMod
 				{
 					// remove the stack from the inventory and spawn it in the world
 					ItemStack stack = inventory.getStackInSlot(i);
-					if (stack != null)
+					if (stack != ItemStack.EMPTY)
 					{
 						event.getEntityLiving().entityDropItem(stack, 0.0F);
 					}
