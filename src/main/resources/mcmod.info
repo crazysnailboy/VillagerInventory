@@ -1,0 +1,16 @@
+[
+{
+  "modid": "villagerinventory",
+  "name": "Villager Inventory Viewer",
+  "description": "\u00A77A GUI for editing Villager's inventories, and other things",
+  "version": "\u00A77${version}",
+  "mcversion": "\u00A77${mcversion}",
+  "url": "https://github.com/crazysnailboy/VillagerInventory",
+  "updateUrl": "",
+  "authorList": ["\u00A77crazysnailboy"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

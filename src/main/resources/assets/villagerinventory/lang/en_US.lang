@@ -1,0 +1,6 @@
+#en_US
+
+options.enableInventoryGui=Enable Inventory GUI
+options.enableInventoryGui.tooltip=Show the villager's inventory in a GUI when shift right-clicking
+options.enableDeathDrops=Enable Death Drops
+options.enableDeathDrops.tooltip=Villagers drop their inventory when killed by a player
