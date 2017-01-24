@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+
 public class VillagerCareerMessage implements IMessage 
 {
 	
@@ -75,41 +76,20 @@ public class VillagerCareerMessage implements IMessage
 						// set the career property of the tag compound and write it back to the villager 
 						compound.setInteger("Career", message.careerId);
 						villager.readEntityFromNBT(compound);
-						
-						// set the careerId field as well, since this is what drives the 						
-//						ObfuscationReflectionHelper.setPrivateValue(EntityVillager.class, villager, message.careerId, "careerId", "field_175563_bv");
 
-						
-						
+						// if there's currently an instance of the villager inventory screen open
 						GuiScreen currentScreen = Minecraft.getMinecraft().currentScreen; 
-//						System.out.println("currentScreen: " + (currentScreen == null ? "null" : currentScreen.getClass().getCanonicalName()));
-						
 						if (currentScreen != null && currentScreen instanceof GuiVillagerInventory)
 						{
+							// update the nbt data for the villager attached to the screen from the tag compound
 							((GuiVillagerInventory)currentScreen).readVillagerFromNBT(compound);
 						}
-						
-//						int careerId = ((Integer)(ObfuscationReflectionHelper.getPrivateValue(EntityVillager.class, villager, "careerId", "field_175563_bv"))).intValue(); // TODO so could this..
-						
 					}
-					
-					
-					
 				}
 			});
 			
 			return null;
 		}
-		
-//		void processMessage(WorldClient worldClient, VillagerCareerMessage message)
-//		{
-//			GuiScreen currentScreen = Minecraft.getMinecraft().currentScreen; 
-//			
-//			System.out.println("currentScreen: " + (currentScreen == null ? "null" : currentScreen.getClass().getCanonicalName()));
-//			
-//			
-//			
-//		}
 		
 	}
 

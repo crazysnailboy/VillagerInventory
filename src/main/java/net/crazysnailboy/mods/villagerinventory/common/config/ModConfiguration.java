@@ -13,6 +13,7 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+
 public class ModConfiguration 
 {
 	private static Configuration config = null;
@@ -36,28 +37,34 @@ public class ModConfiguration
 	}
 	
 	
-	public static Configuration getConfig() {
+	public static Configuration getConfig() 
+	{
 		return config;
 	}
 	
 	
-	public static void syncFromFile() {
+	public static void syncFromFile() 
+	{
 		syncConfig(true, true);
 	}
 
-	public static void syncFromGUI() {
+	public static void syncFromGUI() 
+	{
 		syncConfig(false, true);
 	}
 
-	public static void syncFromFields() {
+	public static void syncFromFields() 
+	{
 		syncConfig(false, false);
 	}
 	
 
 	
-	private static void syncConfig(boolean loadConfigFromFile, boolean readFieldsFromConfig) {	
+	private static void syncConfig(boolean loadConfigFromFile, boolean readFieldsFromConfig) 
+	{
 		
-		if (loadConfigFromFile) {
+		if (loadConfigFromFile) 
+		{
 			config.load();
 		}
 		
@@ -84,19 +91,17 @@ public class ModConfiguration
 		catch(NoClassDefFoundError e) { }
 
 		
-		if (readFieldsFromConfig) {
-			
+		if (readFieldsFromConfig) 
+		{
 			enableInventoryGui = propEnableInventoryGUI.getBoolean();
 			enableDeathDrops = propEnableDeathDrops.getBoolean();
-			
 		}
 		
 		propEnableInventoryGUI.set(enableInventoryGui);
 		propEnableDeathDrops.set(enableDeathDrops);
 		
-		
-	
-		if (config.hasChanged()) {
+		if (config.hasChanged()) 
+		{
 			config.save();
 		}
 		
