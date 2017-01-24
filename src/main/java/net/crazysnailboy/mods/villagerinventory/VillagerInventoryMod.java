@@ -30,7 +30,7 @@ public class VillagerInventoryMod
 
 	public static final String MODID = "villagerinventory";
 	public static final String MODNAME = "Villager Inventory Viewer";
-	public static final String VERSION = "1.0";
+	public static final String VERSION = "1.0.1";
 	public static final String GUIFACTORY = "net.crazysnailboy.mods.villagerinventory.client.config.ModGuiFactory";
 	public static final String UPDATEJSON = "https://raw.githubusercontent.com/crazysnailboy/VillagerInventory/master/update.json";
 	
