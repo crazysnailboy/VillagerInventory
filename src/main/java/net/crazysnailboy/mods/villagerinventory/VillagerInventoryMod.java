@@ -23,6 +23,7 @@ import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
+
 @Mod(modid = VillagerInventoryMod.MODID, name = VillagerInventoryMod.MODNAME, version = VillagerInventoryMod.VERSION, updateJSON = VillagerInventoryMod.UPDATEJSON, guiFactory = VillagerInventoryMod.GUIFACTORY)
 public class VillagerInventoryMod 
 {

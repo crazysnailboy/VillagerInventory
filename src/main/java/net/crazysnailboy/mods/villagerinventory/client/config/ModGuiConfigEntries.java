@@ -3,11 +3,13 @@ package net.crazysnailboy.mods.villagerinventory.client.config;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.GuiConfigEntries;
+import net.minecraftforge.fml.client.config.GuiConfigEntries.ButtonEntry;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.client.config.IConfigElement;
-import net.minecraftforge.fml.client.config.GuiConfigEntries.ButtonEntry;
 
-public class ModGuiConfigEntries {
+
+public class ModGuiConfigEntries 
+{
 
 	public static class BooleanEntry extends ButtonEntry
 	{

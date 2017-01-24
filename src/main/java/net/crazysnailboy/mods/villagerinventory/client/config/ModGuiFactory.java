@@ -5,10 +5,8 @@ import java.util.Set;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.client.IModGuiFactory;
-import net.minecraftforge.fml.client.IModGuiFactory.RuntimeOptionCategoryElement;
-import net.minecraftforge.fml.client.IModGuiFactory.RuntimeOptionGuiHandler;
 
-@SuppressWarnings("deprecation")
+
 public class ModGuiFactory implements IModGuiFactory 
 {
 	@Override
@@ -29,6 +27,7 @@ public class ModGuiFactory implements IModGuiFactory
 		return null;
 	}
  
+	@SuppressWarnings("deprecation")
 	@Override
 	public RuntimeOptionGuiHandler getHandlerFor(RuntimeOptionCategoryElement element) 
 	{
