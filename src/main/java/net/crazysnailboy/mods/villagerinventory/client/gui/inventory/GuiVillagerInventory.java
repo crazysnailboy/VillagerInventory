@@ -13,6 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+
 @SideOnly(Side.CLIENT)
 public class GuiVillagerInventory extends GuiContainer 
 {
@@ -37,7 +38,6 @@ public class GuiVillagerInventory extends GuiContainer
 	public void readVillagerFromNBT(NBTTagCompound compound)
 	{
 		System.out.println("readVillagerFromNBT");
-		
 		this.villagerEntity.readEntityFromNBT(compound);
 	}
 	

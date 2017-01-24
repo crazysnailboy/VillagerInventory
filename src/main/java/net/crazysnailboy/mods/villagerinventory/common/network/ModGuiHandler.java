@@ -1,6 +1,5 @@
 package net.crazysnailboy.mods.villagerinventory.common.network;
 
-
 import net.crazysnailboy.mods.villagerinventory.client.gui.inventory.GuiVillagerInventory;
 import net.crazysnailboy.mods.villagerinventory.inventory.ContainerVillagerInventory;
 import net.minecraft.entity.passive.EntityVillager;

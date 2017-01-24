@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+
 public class VillagerCareerMessage implements IMessage 
 {
 	
@@ -75,10 +76,12 @@ public class VillagerCareerMessage implements IMessage
 						// set the career property of the tag compound and write it back to the villager 
 						compound.setInteger("Career", message.careerId);
 						villager.readEntityFromNBT(compound);
-						
+
+						// if there's currently an instance of the villager inventory screen open
 						GuiScreen currentScreen = Minecraft.getMinecraft().currentScreen; 
 						if (currentScreen != null && currentScreen instanceof GuiVillagerInventory)
 						{
+							// update the nbt data for the villager attached to the screen from the tag compound
 							((GuiVillagerInventory)currentScreen).readVillagerFromNBT(compound);
 						}
 					}
