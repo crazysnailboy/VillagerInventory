@@ -4,3 +4,5 @@ options.enableInventoryGui=Enable Inventory GUI
 options.enableInventoryGui.tooltip=Show the villager's inventory in a GUI when shift right-clicking
 options.enableDeathDrops=Enable Death Drops
 options.enableDeathDrops.tooltip=Villagers drop their inventory when killed by a player
+options.requireEmptyHand=Require Empty Hand
+options.requireEmptyHand.tooltip=Open the inventory only if the player is not holding an item
