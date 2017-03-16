@@ -23,17 +23,15 @@ import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
-
 @Mod(modid = VillagerInventoryMod.MODID, name = VillagerInventoryMod.MODNAME, version = VillagerInventoryMod.VERSION, updateJSON = VillagerInventoryMod.UPDATEJSON, guiFactory = VillagerInventoryMod.GUIFACTORY)
 public class VillagerInventoryMod
 {
 
 	public static final String MODID = "villagerinventory";
 	public static final String MODNAME = "Villager Inventory Viewer";
-	public static final String VERSION = "1.1";
+	public static final String VERSION = "${version}";
 	public static final String GUIFACTORY = "net.crazysnailboy.mods.villagerinventory.client.config.ModGuiFactory";
 	public static final String UPDATEJSON = "https://raw.githubusercontent.com/crazysnailboy/VillagerInventory/master/update.json";
-
 
 	// mod instance
 	@Instance(VillagerInventoryMod.MODID)
@@ -44,8 +42,6 @@ public class VillagerInventoryMod
 
 	// network
 	private static SimpleNetworkWrapper network = NetworkRegistry.INSTANCE.newSimpleChannel(VillagerInventoryMod.MODID);
-
-
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
@@ -72,7 +68,6 @@ public class VillagerInventoryMod
 	public void postInit(FMLPostInitializationEvent event)
 	{
 	}
-
 
 	@SubscribeEvent
 	public void onPlayerEntityInteract(PlayerInteractEvent.EntityInteract event)
@@ -110,7 +105,6 @@ public class VillagerInventoryMod
 		}
 	}
 
-
 	@SubscribeEvent
 	public void onEntityDeath(LivingDeathEvent event)
 	{
@@ -122,7 +116,7 @@ public class VillagerInventoryMod
 			{
 				// iterate through the itemstacks in the villager's inventory
 				InventoryBasic inventory = ((EntityVillager)event.getEntityLiving()).getVillagerInventory();
-				for ( int i = 0 ; i < inventory.getSizeInventory() ; i++ )
+				for (int i = 0; i < inventory.getSizeInventory(); i++)
 				{
 					// remove the stack from the inventory and spawn it in the world
 					ItemStack stack = inventory.getStackInSlot(i);
@@ -134,6 +128,5 @@ public class VillagerInventoryMod
 			}
 		}
 	}
-
 
 }
