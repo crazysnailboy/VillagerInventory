@@ -8,7 +8,7 @@ import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.client.config.IConfigElement;
 
 
-public class ModGuiConfigEntries 
+public class ModGuiConfigEntries
 {
 
 	public static class BooleanEntry extends ButtonEntry
@@ -94,6 +94,6 @@ public class ModGuiConfigEntries
 			return new Boolean[] { getCurrentValue() };
 		}
 	}
-	
-	
+
+
 }

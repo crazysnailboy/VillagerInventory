@@ -3,21 +3,23 @@ package net.crazysnailboy.mods.villagerinventory.common.config;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import net.crazysnailboy.mods.villagerinventory.VillagerInventoryMod;
 import net.crazysnailboy.mods.villagerinventory.client.config.ModGuiConfigEntries;
+import net.crazysnailboy.mods.villagerinventory.common.network.ConfigSyncMessage;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 
 
 public class ModConfiguration
 {
 	private static Configuration config = null;
-	private static ConfigEventHandler configEventHandler = new ConfigEventHandler();
 
 	public static boolean enableInventoryGui = true;
 	public static boolean enableDeathDrops = true;
@@ -30,11 +32,12 @@ public class ModConfiguration
 		config = new Configuration(configFile);
 		config.load();
 		syncFromFile();
+		MinecraftForge.EVENT_BUS.register(new ConfigEventHandler());
 	}
 
 	public static void clientPreInit()
 	{
-		MinecraftForge.EVENT_BUS.register(new ConfigEventHandler());
+		MinecraftForge.EVENT_BUS.register(new ClientConfigEventHandler());
 	}
 
 
@@ -117,14 +120,35 @@ public class ModConfiguration
 	}
 
 
+
+
 	public static class ConfigEventHandler
+	{
+		@SubscribeEvent
+		public void onPlayerLoggedIn(PlayerLoggedInEvent event)
+		{
+			if (!event.player.world.isRemote)
+			{
+				VillagerInventoryMod.INSTANCE.getNetwork().sendTo(new ConfigSyncMessage(), (EntityPlayerMP)event.player);
+			}
+		}
+	}
+
+	public static class ClientConfigEventHandler
 	{
 		@SubscribeEvent
 		public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
 		{
-			if (VillagerInventoryMod.MODID.equals(event.getModID()) && !event.isWorldRunning())
+			if (VillagerInventoryMod.MODID.equals(event.getModID()))
 			{
-				syncFromGUI();
+				if (!event.isWorldRunning() || Minecraft.getMinecraft().isSingleplayer())
+				{
+					syncFromGUI();
+					if (event.isWorldRunning() && Minecraft.getMinecraft().isSingleplayer())
+					{
+						VillagerInventoryMod.INSTANCE.getNetwork().sendToServer(new ConfigSyncMessage());
+					}
+				}
 			}
 		}
 	}

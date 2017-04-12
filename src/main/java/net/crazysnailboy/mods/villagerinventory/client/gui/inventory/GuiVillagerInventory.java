@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 
 @SideOnly(Side.CLIENT)
-public class GuiVillagerInventory extends GuiContainer 
+public class GuiVillagerInventory extends GuiContainer
 {
 
 	private static final ResourceLocation VILLAGER_GUI_TEXTURES = new ResourceLocation(VillagerInventoryMod.MODID, "textures/gui/container/villager_inventory.png");
@@ -23,9 +23,9 @@ public class GuiVillagerInventory extends GuiContainer
 	private final IInventory playerInventory;
 	private final IInventory villagerInventory;
 	private final EntityVillager villagerEntity;
-	
 
-	public GuiVillagerInventory(InventoryPlayer playerInv, InventoryBasic villagerInv, EntityVillager villager) 
+
+	public GuiVillagerInventory(InventoryPlayer playerInv, InventoryBasic villagerInv, EntityVillager villager)
 	{
 		super(new ContainerVillagerInventory(playerInv, villagerInv, villager, playerInv.player));
 		this.playerInventory = playerInv;
@@ -34,39 +34,38 @@ public class GuiVillagerInventory extends GuiContainer
 		this.allowUserInput = false;
 		this.ySize = 133;
 	}
-	
+
 	public void readVillagerFromNBT(NBTTagCompound compound)
 	{
-		System.out.println("readVillagerFromNBT");
 		this.villagerEntity.readEntityFromNBT(compound);
 	}
-	
-	
+
+
 	/**
 	 * Draw the foreground layer for the GuiContainer (everything in front of the items)
 	 */
 	@Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) 
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
 		// write the villager career at the top of the gui
 		this.fontRendererObj.drawString(this.villagerInventory.getName(), 8, 6, 4210752);
-		
+
 		// write "inventory" above the player inventory
 		this.fontRendererObj.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
 	}
-	
-	
+
+
 	/**
 	 * Draws the background layer of this container (behind the items).
 	 */
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) 
+	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY)
 	{
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		
+
 		// bind the background gui texture
 		this.mc.getTextureManager().bindTexture(VILLAGER_GUI_TEXTURES);
-		
+
 		// render the gui background
 		int guiX = (this.width - this.xSize) / 2;
 		int guiY = (this.height - this.ySize) / 2;

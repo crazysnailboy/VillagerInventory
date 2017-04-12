@@ -1,7 +1,6 @@
 package net.crazysnailboy.mods.villagerinventory.client.config;
 
 import java.util.List;
-
 import net.crazysnailboy.mods.villagerinventory.VillagerInventoryMod;
 import net.crazysnailboy.mods.villagerinventory.common.config.ModConfiguration;
 import net.minecraft.client.gui.GuiButton;
@@ -11,21 +10,15 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.IConfigElement;
 
-public class ModGuiConfig extends GuiConfig 
+public class ModGuiConfig extends GuiConfig
 {
 
-	public ModGuiConfig(GuiScreen parent) 
+	public ModGuiConfig(GuiScreen parent)
 	{
-		super(parent, 
- 			getConfigElements(), 
-			VillagerInventoryMod.MODID, 
-			false, 
-			false, 
-			VillagerInventoryMod.MODNAME
-		);
+		super(parent, getConfigElements(), VillagerInventoryMod.MODID, false, false, VillagerInventoryMod.MODNAME);
 	}
-	
-	
+
+
 	private static List<IConfigElement> getConfigElements()
 	{
 		Configuration config = ModConfiguration.getConfig();
@@ -33,7 +26,7 @@ public class ModGuiConfig extends GuiConfig
 		return list;
 	}
 
-	
+
 	@Override
 	public void initGui()
 	{
@@ -51,6 +44,6 @@ public class ModGuiConfig extends GuiConfig
 	{
 		super.actionPerformed(button);
 	}
-	
+
 
 }

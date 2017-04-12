@@ -8,17 +8,17 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
 
-public class ModGuiHandler implements IGuiHandler 
+public class ModGuiHandler implements IGuiHandler
 {
-	
+
 	public static final int GUI_VILLAGER_INVENTORY = 0;
-	
-	
+
+
 	/**
 	 * Returns a Server side Container to be displayed to the user.
 	 */
 	@Override
-	public Object getServerGuiElement(int id, EntityPlayer player, World world, int entityId, int professionId, int careerId) 
+	public Object getServerGuiElement(int id, EntityPlayer player, World world, int entityId, int professionId, int careerId)
 	{
 		if (id == GUI_VILLAGER_INVENTORY)
 		{
@@ -38,7 +38,7 @@ public class ModGuiHandler implements IGuiHandler
 	 * return a instance of Container
 	 */
 	@Override
-	public Object getClientGuiElement(int id, EntityPlayer player, World world, int entityId, int professionId, int careerId) 
+	public Object getClientGuiElement(int id, EntityPlayer player, World world, int entityId, int professionId, int careerId)
 	{
 		if (id == GUI_VILLAGER_INVENTORY)
 		{
