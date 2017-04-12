@@ -1,26 +1,29 @@
 {
 	"homepage": "https://minecraft.curseforge.com/projects/villager-inventory-viewer/files",
 	"promos": {
-		"1.11.2-latest": "1.0.2",
-		"1.11.2-recommended": "1.0.2",
-		"1.11-latest": "1.0.2",
-		"1.11-recommended": "1.0.2",
-		"1.10.2-latest": "1.0.2",
-		"1.10.2-recommended": "1.0.2",
+		"1.11.2-latest": "1.0.3",
+		"1.11.2-recommended": "1.0.3",
+		"1.11-latest": "1.0.3",
+		"1.11-recommended": "1.0.3",
+		"1.10.2-latest": "1.0.3",
+		"1.10.2-recommended": "1.0.3",
 		"1.9.4-latest": "1.0.1",
 		"1.9.4-recommended": "1.0.1"
 	},
 	"1.11.2": {
+		"1.0.3": "Fixed Config GUI not working while world is running",
 		"1.0.2": "Added config option to require an empty hand to open inventory GUI",
 		"1.0.1": "Minor tweaks only",
 		"1.0": "Initial release"
 	},
 	"1.11": {
+		"1.0.3": "Fixed Config GUI not working while world is running",
 		"1.0.2": "Added config option to require an empty hand to open inventory GUI",
 		"1.0.1": "Minor tweaks only",
 		"1.0": "Initial release"
 	},
 	"1.10.2": {
+		"1.0.3": "Fixed Config GUI not working while world is running",
 		"1.0.2": "Added config option to require an empty hand to open inventory GUI",
 		"1.0.1": "Minor tweaks only",
 		"1.0": "Initial release"
