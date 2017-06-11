@@ -28,17 +28,17 @@ public class ConfigSyncMessage implements IMessage
 	@Override
 	public void fromBytes(ByteBuf buf)
 	{
-		enableInventoryGui = (ByteBufUtils.readVarShort(buf) == 1);
-		enableDeathDrops = (ByteBufUtils.readVarShort(buf) == 1);
-		requireEmptyHand = (ByteBufUtils.readVarShort(buf) == 1);
+		this.enableInventoryGui = (ByteBufUtils.readVarShort(buf) == 1);
+		this.enableDeathDrops = (ByteBufUtils.readVarShort(buf) == 1);
+		this.requireEmptyHand = (ByteBufUtils.readVarShort(buf) == 1);
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf)
 	{
-		ByteBufUtils.writeVarShort(buf, (enableInventoryGui ? 1 : 0));
-		ByteBufUtils.writeVarShort(buf, (enableDeathDrops ? 1 : 0));
-		ByteBufUtils.writeVarShort(buf, (requireEmptyHand ? 1 : 0));
+		ByteBufUtils.writeVarShort(buf, (this.enableInventoryGui ? 1 : 0));
+		ByteBufUtils.writeVarShort(buf, (this.enableDeathDrops ? 1 : 0));
+		ByteBufUtils.writeVarShort(buf, (this.requireEmptyHand ? 1 : 0));
 	}
 
 
@@ -53,7 +53,7 @@ public class ConfigSyncMessage implements IMessage
 				else if (ctx.side == Side.CLIENT) return Minecraft.getMinecraft();
 				else return null;
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				VillagerInventoryMod.LOGGER.catching(ex);
 				return null;
@@ -63,9 +63,10 @@ public class ConfigSyncMessage implements IMessage
 		@Override
 		public IMessage onMessage(final ConfigSyncMessage message, MessageContext ctx)
 		{
-			IThreadListener threadListener = getThreadListener(ctx);
+			IThreadListener threadListener = this.getThreadListener(ctx);
 			threadListener.addScheduledTask(new Runnable()
 			{
+
 				@Override
 				public void run()
 				{

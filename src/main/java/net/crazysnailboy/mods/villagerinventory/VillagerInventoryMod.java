@@ -26,22 +26,24 @@ import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
-@Mod(modid = VillagerInventoryMod.MODID, name = VillagerInventoryMod.MODNAME, version = VillagerInventoryMod.VERSION, updateJSON = VillagerInventoryMod.UPDATEJSON, guiFactory = VillagerInventoryMod.GUIFACTORY)
+
+@Mod(modid = VillagerInventoryMod.MODID, name = VillagerInventoryMod.NAME, version = VillagerInventoryMod.VERSION, updateJSON = VillagerInventoryMod.UPDATEJSON, guiFactory = VillagerInventoryMod.GUIFACTORY)
 public class VillagerInventoryMod
 {
 
 	public static final String MODID = "villagerinventory";
-	public static final String MODNAME = "Villager Inventory Viewer";
+	public static final String NAME = "Villager Inventory Viewer";
 	public static final String VERSION = "${version}";
 	public static final String GUIFACTORY = "net.crazysnailboy.mods.villagerinventory.client.config.ModGuiFactory";
 	public static final String UPDATEJSON = "https://raw.githubusercontent.com/crazysnailboy/VillagerInventory/master/update.json";
+
 
 	@Instance(MODID)
 	public static VillagerInventoryMod INSTANCE;
 
 	private static SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
 
-	public static Logger LOGGER = LogManager.getLogger(MODID);
+	public static final Logger LOGGER = LogManager.getLogger(MODID);
 
 
 	public SimpleNetworkWrapper getNetwork()
@@ -54,8 +56,7 @@ public class VillagerInventoryMod
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		// initialize the configuration
-		ModConfiguration.preInit();
-		if (event.getSide() == Side.CLIENT) ModConfiguration.clientPreInit();
+		ModConfiguration.initializeConfiguration();
 
 		// register the network messages
 		NETWORK.registerMessage(VillagerCareerMessage.MessageHandler.class, VillagerCareerMessage.class, 0, Side.CLIENT);
@@ -120,7 +121,7 @@ public class VillagerInventoryMod
 		public static void onEntityDeath(LivingDeathEvent event)
 		{
 			// if villager death drops are enabled, if the newly dead entity is a villager, and that villager was killed by a player...
-			if ((ModConfiguration.enableDeathDrops) && (event.getEntityLiving() instanceof EntityVillager) && (event.getSource().getSourceOfDamage() instanceof EntityPlayerMP))
+			if ((ModConfiguration.enableDeathDrops) && (event.getEntityLiving() instanceof EntityVillager) && (event.getSource().getTrueSource() instanceof EntityPlayerMP))
 			{
 				// iterate through the itemstacks in the villager's inventory
 				InventoryBasic inventory = ((EntityVillager)event.getEntityLiving()).getVillagerInventory();

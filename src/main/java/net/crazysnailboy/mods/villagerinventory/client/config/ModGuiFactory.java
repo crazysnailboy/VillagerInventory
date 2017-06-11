@@ -1,35 +1,35 @@
 package net.crazysnailboy.mods.villagerinventory.client.config;
 
-import java.util.Set;
-import net.minecraft.client.Minecraft;
+import java.util.List;
+import net.crazysnailboy.mods.villagerinventory.VillagerInventoryMod;
+import net.crazysnailboy.mods.villagerinventory.common.config.ModConfiguration;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraftforge.fml.client.IModGuiFactory;
+import net.minecraftforge.common.config.ConfigElement;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.client.DefaultGuiFactory;
+import net.minecraftforge.fml.client.config.GuiConfig;
+import net.minecraftforge.fml.client.config.IConfigElement;
 
 
-public class ModGuiFactory implements IModGuiFactory
+public class ModGuiFactory extends DefaultGuiFactory
 {
-	@Override
-	public void initialize(Minecraft minecraftInstance)
-	{
 
+	public ModGuiFactory()
+	{
+		super(VillagerInventoryMod.MODID, VillagerInventoryMod.NAME);
 	}
 
 	@Override
-	public Class<? extends GuiScreen> mainConfigGuiClass()
+	public GuiScreen createConfigGui(GuiScreen parentScreen)
 	{
-		return ModGuiConfig.class;
+		return new GuiConfig(parentScreen, getConfigElements(), VillagerInventoryMod.MODID, false, false, this.title);
 	}
 
-	@Override
-	public Set<RuntimeOptionCategoryElement> runtimeGuiCategories()
+	private static List<IConfigElement> getConfigElements()
 	{
-		return null;
+		Configuration config = ModConfiguration.getConfig();
+		List<IConfigElement> list = new ConfigElement(config.getCategory(Configuration.CATEGORY_GENERAL)).getChildElements();
+		return list;
 	}
 
-	@SuppressWarnings("deprecation")
-	@Override
-	public RuntimeOptionGuiHandler getHandlerFor(RuntimeOptionCategoryElement element)
-	{
-		return null;
-	}
 }

@@ -21,20 +21,22 @@ public class ContainerVillagerInventory extends Container
 		this.villagerInventory = villagerInventoryIn;
 		this.villager = villager;
 
-		villagerInventory.setCustomName(this.villager.getDisplayName().getUnformattedText());
+		this.villagerInventory.setCustomName(this.villager.getDisplayName().getUnformattedText());
 
 
 		villagerInventoryIn.openInventory(player);
 
 		// villager inventory slots
-		int offsetX = 17; int offsetY = 20;
+		int offsetX = 17;
+		int offsetY = 20;
 		for (int col = 0; col < 8; col++)
 		{
 			this.addSlotToContainer(new Slot(villagerInventoryIn, col, offsetX + col * 18, offsetY));
 		}
 
 		// player inventory
-		offsetX = 8; offsetY = 51;
+		offsetX = 8;
+		offsetY = 51;
 		for (int row = 0; row < 3; row++)
 		{
 			for (int col = 0; col < 9; col++)

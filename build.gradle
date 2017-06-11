@@ -4,28 +4,27 @@ buildscript {
         maven { url = "http://files.minecraftforge.net/maven" }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
-//Only edit below this line, the above code adds and enables the nessasary things for Forge to be setup.
 
 
 version = "1.0.3"
 group = "net.crazysnailboy.mods.villagerinventory"
-archivesBaseName = "VillagerInventory-1.11"
+archivesBaseName = "VillagerInventory-1.12"
 
-sourceCompatibility = targetCompatibility = "1.6"
+sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {
-    sourceCompatibility = targetCompatibility = "1.6"
+    sourceCompatibility = targetCompatibility = '1.8'
 }
 
 minecraft {
-    version = "1.11-13.19.1.2189"
+    version = "1.12-14.21.0.2322"
     runDir = "run"
-    mappings = "snapshot_20170316"
+    mappings = "snapshot_20170610"
     makeObfSourceJar = false
-    
+
     replace "\${version}", project.version
     replaceIn "VillagerInventoryMod.java"
 }

@@ -13,71 +13,71 @@ public class ModGuiConfigEntries
 
 	public static class BooleanEntry extends ButtonEntry
 	{
+
 		protected final boolean beforeValue;
-		protected boolean	   currentValue;
+		protected boolean currentValue;
 
 		public BooleanEntry(GuiConfig owningScreen, GuiConfigEntries owningEntryList, IConfigElement configElement)
 		{
 			super(owningScreen, owningEntryList, configElement);
 			this.beforeValue = Boolean.valueOf(configElement.get().toString());
-			this.currentValue = beforeValue;
-			this.btnValue.enabled = enabled();
-			updateValueButtonText();
+			this.currentValue = this.beforeValue;
+			this.btnValue.enabled = this.enabled();
+			this.updateValueButtonText();
 		}
 
 		@Override
 		public void updateValueButtonText()
 		{
-			this.btnValue.displayString = I18n.format(String.valueOf(currentValue));
-			btnValue.packedFGColour = currentValue ? GuiUtils.getColorCode('2', true) : GuiUtils.getColorCode('4', true);
+			this.btnValue.displayString = I18n.format(String.valueOf(this.currentValue));
+			this.btnValue.packedFGColour = this.currentValue ? GuiUtils.getColorCode('2', true) : GuiUtils.getColorCode('4', true);
 		}
 
 		@Override
 		public void valueButtonPressed(int slotIndex)
 		{
-			if (enabled())
-				currentValue = !currentValue;
+			if (this.enabled()) this.currentValue = !this.currentValue;
 		}
 
 		@Override
 		public boolean isDefault()
 		{
-			return currentValue == Boolean.valueOf(configElement.getDefault().toString());
+			return this.currentValue == Boolean.valueOf(this.configElement.getDefault().toString());
 		}
 
 		@Override
 		public void setToDefault()
 		{
-			if (enabled())
+			if (this.enabled())
 			{
-				currentValue = Boolean.valueOf(configElement.getDefault().toString());
-				updateValueButtonText();
+				this.currentValue = Boolean.valueOf(this.configElement.getDefault().toString());
+				this.updateValueButtonText();
 			}
 		}
 
 		@Override
 		public boolean isChanged()
 		{
-			return currentValue != beforeValue;
+			return this.currentValue != this.beforeValue;
 		}
 
 		@Override
 		public void undoChanges()
 		{
-			if (enabled())
+			if (this.enabled())
 			{
-				currentValue = beforeValue;
-				updateValueButtonText();
+				this.currentValue = this.beforeValue;
+				this.updateValueButtonText();
 			}
 		}
 
 		@Override
 		public boolean saveConfigElement()
 		{
-			if (enabled() && isChanged())
+			if (this.enabled() && this.isChanged())
 			{
-				configElement.set(currentValue);
-				return configElement.requiresMcRestart();
+				this.configElement.set(this.currentValue);
+				return this.configElement.requiresMcRestart();
 			}
 			return false;
 		}
@@ -85,13 +85,13 @@ public class ModGuiConfigEntries
 		@Override
 		public Boolean getCurrentValue()
 		{
-			return currentValue;
+			return this.currentValue;
 		}
 
 		@Override
 		public Boolean[] getCurrentValues()
 		{
-			return new Boolean[] { getCurrentValue() };
+			return new Boolean[] { this.getCurrentValue() };
 		}
 	}
 

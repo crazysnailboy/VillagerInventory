@@ -8,17 +8,20 @@ import net.crazysnailboy.mods.villagerinventory.client.config.ModGuiConfigEntrie
 import net.crazysnailboy.mods.villagerinventory.common.network.ConfigSyncMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 
 public class ModConfiguration
 {
+
 	private static Configuration config = null;
 
 	public static boolean enableInventoryGui = true;
@@ -26,20 +29,13 @@ public class ModConfiguration
 	public static boolean requireEmptyHand = false;
 
 
-	public static void preInit()
+	public static void initializeConfiguration()
 	{
 		File configFile = new File(Loader.instance().getConfigDir(), VillagerInventoryMod.MODID + ".cfg");
 		config = new Configuration(configFile);
 		config.load();
 		syncFromFile();
-		MinecraftForge.EVENT_BUS.register(new ConfigEventHandler());
 	}
-
-	public static void clientPreInit()
-	{
-		MinecraftForge.EVENT_BUS.register(new ClientConfigEventHandler());
-	}
-
 
 	public static Configuration getConfig()
 	{
@@ -57,12 +53,6 @@ public class ModConfiguration
 		syncConfig(false, true);
 	}
 
-	public static void syncFromFields()
-	{
-		syncConfig(false, false);
-	}
-
-
 
 	private static void syncConfig(boolean loadConfigFromFile, boolean readFieldsFromConfig)
 	{
@@ -72,15 +62,15 @@ public class ModConfiguration
 			config.load();
 		}
 
-		Property propEnableInventoryGUI = config.get(Configuration.CATEGORY_GENERAL, "enableInventoryGui", enableInventoryGui, "");
+		Property propEnableInventoryGUI = config.get(Configuration.CATEGORY_GENERAL, "enableInventoryGui", true, "");
 		propEnableInventoryGUI.setLanguageKey("options.enableInventoryGui");
 		propEnableInventoryGUI.setRequiresMcRestart(false);
 
-		Property propRequireEmptyHand = config.get(Configuration.CATEGORY_GENERAL, "requireEmptyHand", requireEmptyHand, "");
+		Property propRequireEmptyHand = config.get(Configuration.CATEGORY_GENERAL, "requireEmptyHand", false, "");
 		propRequireEmptyHand.setLanguageKey("options.requireEmptyHand");
 		propRequireEmptyHand.setRequiresMcRestart(false);
 
-		Property propEnableDeathDrops = config.get(Configuration.CATEGORY_GENERAL, "enableDeathDrops", enableDeathDrops, "");
+		Property propEnableDeathDrops = config.get(Configuration.CATEGORY_GENERAL, "enableDeathDrops", true, "");
 		propEnableDeathDrops.setLanguageKey("options.enableDeathDrops");
 		propEnableDeathDrops.setRequiresMcRestart(false);
 
@@ -98,7 +88,9 @@ public class ModConfiguration
 			config.setCategoryPropertyOrder(Configuration.CATEGORY_GENERAL, propOrderGeneral);
 
 		}
-		catch(NoClassDefFoundError e) { }
+		catch (NoClassDefFoundError e)
+		{
+		}
 
 
 		if (readFieldsFromConfig)
@@ -120,26 +112,24 @@ public class ModConfiguration
 	}
 
 
-
-
+	@EventBusSubscriber
 	public static class ConfigEventHandler
 	{
+
 		@SubscribeEvent
-		public void onPlayerLoggedIn(PlayerLoggedInEvent event)
+		public static void onPlayerLoggedIn(PlayerLoggedInEvent event)
 		{
 			if (!event.player.world.isRemote)
 			{
 				VillagerInventoryMod.INSTANCE.getNetwork().sendTo(new ConfigSyncMessage(), (EntityPlayerMP)event.player);
 			}
 		}
-	}
 
-	public static class ClientConfigEventHandler
-	{
+		@SideOnly(Side.CLIENT)
 		@SubscribeEvent
-		public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
+		public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
 		{
-			if (VillagerInventoryMod.MODID.equals(event.getModID()))
+			if (event.getModID().equals(VillagerInventoryMod.MODID))
 			{
 				if (!event.isWorldRunning() || Minecraft.getMinecraft().isSingleplayer())
 				{
