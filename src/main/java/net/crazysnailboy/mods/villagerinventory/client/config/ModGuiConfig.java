@@ -17,12 +17,11 @@ public class ModGuiConfig extends GuiConfig
 	public ModGuiConfig(GuiScreen parent)
 	{
 		super(parent,
- 			getConfigElements(),
+			getConfigElements(),
 			VillagerInventoryMod.MODID,
 			false,
 			false,
-			VillagerInventoryMod.MODNAME
-		);
+			VillagerInventoryMod.NAME);
 	}
 
 
