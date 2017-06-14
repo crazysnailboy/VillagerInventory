@@ -37,8 +37,18 @@ public class GuiVillagerInventory extends GuiContainer
 
 	public void readVillagerFromNBT(NBTTagCompound compound)
 	{
-		System.out.println("readVillagerFromNBT");
 		this.villagerEntity.readEntityFromNBT(compound);
+	}
+
+
+	/**
+	 * Draws the screen and all the components in it.
+	 */
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks)
+	{
+		this.drawDefaultBackground();
+		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 
 
@@ -49,10 +59,10 @@ public class GuiVillagerInventory extends GuiContainer
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
 	{
 		// write the villager career at the top of the gui
-		this.fontRenderer.drawString(this.villagerInventory.getName(), 8, 6, 4210752);
+		this.fontRenderer.drawString(this.villagerInventory.getName(), 8, 6, 0x404040);
 
 		// write "inventory" above the player inventory
-		this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
+		this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 0x404040);
 	}
 
 
