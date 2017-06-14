@@ -46,6 +46,7 @@ public class VillagerCareerMessage implements IMessage
 
 	public static final class MessageHandler implements IMessageHandler<VillagerCareerMessage, IMessage>
 	{
+
 		@Override
 		public IMessage onMessage(final VillagerCareerMessage message, MessageContext ctx)
 		{
@@ -54,6 +55,7 @@ public class VillagerCareerMessage implements IMessage
 
 			minecraft.addScheduledTask(new Runnable()
 			{
+
 				@Override
 				public void run()
 				{

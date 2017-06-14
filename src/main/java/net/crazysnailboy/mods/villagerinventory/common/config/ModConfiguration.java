@@ -19,6 +19,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 
 public class ModConfiguration
 {
+
 	private static Configuration config = null;
 
 	public static boolean enableInventoryGui = true;
@@ -63,7 +64,6 @@ public class ModConfiguration
 	}
 
 
-
 	private static void syncConfig(boolean loadConfigFromFile, boolean readFieldsFromConfig)
 	{
 
@@ -98,7 +98,9 @@ public class ModConfiguration
 			config.setCategoryPropertyOrder(Configuration.CATEGORY_GENERAL, propOrderGeneral);
 
 		}
-		catch(NoClassDefFoundError e) { }
+		catch (NoClassDefFoundError e)
+		{
+		}
 
 
 		if (readFieldsFromConfig)
@@ -120,10 +122,9 @@ public class ModConfiguration
 	}
 
 
-
-
 	public static class ConfigEventHandler
 	{
+
 		@SubscribeEvent
 		public void onPlayerLoggedIn(PlayerLoggedInEvent event)
 		{
@@ -136,6 +137,7 @@ public class ModConfiguration
 
 	public static class ClientConfigEventHandler
 	{
+
 		@SubscribeEvent
 		public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
 		{

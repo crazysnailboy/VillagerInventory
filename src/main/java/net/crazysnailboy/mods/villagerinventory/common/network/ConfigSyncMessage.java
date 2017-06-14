@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
+
 public class ConfigSyncMessage implements IMessage
 {
 
@@ -52,7 +53,7 @@ public class ConfigSyncMessage implements IMessage
 				else if (ctx.side == Side.CLIENT) return Minecraft.getMinecraft();
 				else return null;
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				VillagerInventoryMod.LOGGER.catching(ex);
 				return null;
@@ -65,6 +66,7 @@ public class ConfigSyncMessage implements IMessage
 			IThreadListener threadListener = getThreadListener(ctx);
 			threadListener.addScheduledTask(new Runnable()
 			{
+
 				@Override
 				public void run()
 				{

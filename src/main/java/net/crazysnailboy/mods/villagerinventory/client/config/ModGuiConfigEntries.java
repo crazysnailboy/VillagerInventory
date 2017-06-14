@@ -13,8 +13,9 @@ public class ModGuiConfigEntries
 
 	public static class BooleanEntry extends ButtonEntry
 	{
+
 		protected final boolean beforeValue;
-		protected boolean	   currentValue;
+		protected boolean currentValue;
 
 		public BooleanEntry(GuiConfig owningScreen, GuiConfigEntries owningEntryList, IConfigElement configElement)
 		{

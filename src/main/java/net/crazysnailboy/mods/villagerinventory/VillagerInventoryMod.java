@@ -26,12 +26,13 @@ import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
-@Mod(modid = VillagerInventoryMod.MODID, name = VillagerInventoryMod.MODNAME, version = VillagerInventoryMod.VERSION, updateJSON = VillagerInventoryMod.UPDATEJSON, guiFactory = VillagerInventoryMod.GUIFACTORY)
+
+@Mod(modid = VillagerInventoryMod.MODID, name = VillagerInventoryMod.NAME, version = VillagerInventoryMod.VERSION, updateJSON = VillagerInventoryMod.UPDATEJSON, guiFactory = VillagerInventoryMod.GUIFACTORY)
 public class VillagerInventoryMod
 {
 
 	public static final String MODID = "villagerinventory";
-	public static final String MODNAME = "Villager Inventory Viewer";
+	public static final String NAME = "Villager Inventory Viewer";
 	public static final String VERSION = "${version}";
 	public static final String GUIFACTORY = "net.crazysnailboy.mods.villagerinventory.client.config.ModGuiFactory";
 	public static final String UPDATEJSON = "https://raw.githubusercontent.com/crazysnailboy/VillagerInventory/master/update.json";
@@ -41,7 +42,7 @@ public class VillagerInventoryMod
 
 	private static SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
 
-	public static Logger LOGGER = LogManager.getLogger(MODID);
+	public static final Logger LOGGER = LogManager.getLogger(MODID);
 
 
 	public SimpleNetworkWrapper getNetwork()

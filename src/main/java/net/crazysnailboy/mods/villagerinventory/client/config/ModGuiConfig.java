@@ -10,12 +10,13 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.IConfigElement;
 
+
 public class ModGuiConfig extends GuiConfig
 {
 
 	public ModGuiConfig(GuiScreen parent)
 	{
-		super(parent, getConfigElements(), VillagerInventoryMod.MODID, false, false, VillagerInventoryMod.MODNAME);
+		super(parent, getConfigElements(), VillagerInventoryMod.MODID, false, false, VillagerInventoryMod.NAME);
 	}
 
 
