@@ -1,8 +1,8 @@
 {
 	"homepage": "https://minecraft.curseforge.com/projects/villager-inventory-viewer/files",
 	"promos": {
-		"1.12-latest": "1.0.3",
-		"1.12-recommended": "1.0.3",
+		"1.12-latest": "1.0.4",
+		"1.12-recommended": "1.0.4",
 		"1.11.2-latest": "1.0.3",
 		"1.11.2-recommended": "1.0.3",
 		"1.11-latest": "1.0.3",
@@ -13,6 +13,7 @@
 		"1.9.4-recommended": "1.0.1"
 	},
 	"1.12": {
+		"1.0.4", "Fixed GUI background and tooltips",
 		"1.0.3": "Initial 1.12 release"
 	},
 	"1.11.2": {
