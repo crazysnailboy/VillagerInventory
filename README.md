@@ -1,6 +1,6 @@
 # Villager Inventory Viewer
 
-### A mod for Minecraft 1.12
+### A mod for Minecraft 1.12.x
 
 A mod which provides a GUI for manipulating a villager's inventory, and allows villagers to drop their inventories upon death.
 
