@@ -1,39 +1,44 @@
 {
 	"homepage": "https://minecraft.curseforge.com/projects/villager-inventory-viewer/files",
 	"promos": {
-		"1.12.1-latest": "1.0.4",
-		"1.12.1-recommended": "1.0.4",
-		"1.12-latest": "1.0.4",
-		"1.12-recommended": "1.0.4",
-		"1.11.2-latest": "1.0.3",
-		"1.11.2-recommended": "1.0.3",
-		"1.11-latest": "1.0.3",
-		"1.11-recommended": "1.0.3",
-		"1.10.2-latest": "1.0.3",
-		"1.10.2-recommended": "1.0.3",
+		"1.12.1-latest": "1.0.5",
+		"1.12.1-recommended": "1.0.5",
+		"1.12-latest": "1.0.5",
+		"1.12-recommended": "1.0.5",
+		"1.11.2-latest": "1.0.5",
+		"1.11.2-recommended": "1.0.5",
+		"1.11-latest": "1.0.5",
+		"1.11-recommended": "1.0.5",
+		"1.10.2-latest": "1.0.5",
+		"1.10.2-recommended": "1.0.5",
 		"1.9.4-latest": "1.0.1",
 		"1.9.4-recommended": "1.0.1"
 	},
 	"1.12.1": {
+		"1.0.5": "Added keybinding for opening GUI and other tweaks",
 		"1.0.4": "Initial 1.12.1 release"
 	},
 	"1.12": {
+		"1.0.5": "Added keybinding for opening GUI and other tweaks",
 		"1.0.4", "Fixed GUI background and tooltips",
 		"1.0.3": "Initial 1.12 release"
 	},
 	"1.11.2": {
+		"1.0.5": "Added keybinding for opening GUI and other tweaks",
 		"1.0.3": "Fixed Config GUI not working while world is running",
 		"1.0.2": "Added config option to require an empty hand to open inventory GUI",
 		"1.0.1": "Minor tweaks only",
 		"1.0": "Initial release"
 	},
 	"1.11": {
+		"1.0.5": "Added keybinding for opening GUI and other tweaks",
 		"1.0.3": "Fixed Config GUI not working while world is running",
 		"1.0.2": "Added config option to require an empty hand to open inventory GUI",
 		"1.0.1": "Minor tweaks only",
 		"1.0": "Initial release"
 	},
 	"1.10.2": {
+		"1.0.5": "Added keybinding for opening GUI and other tweaks",
 		"1.0.3": "Fixed Config GUI not working while world is running",
 		"1.0.2": "Added config option to require an empty hand to open inventory GUI",
 		"1.0.1": "Minor tweaks only",

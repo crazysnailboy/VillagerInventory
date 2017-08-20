@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.crazysnailboy.mods.villagerinventory.VillagerInventoryMod;
 import net.crazysnailboy.mods.villagerinventory.client.config.ModGuiConfigEntries;
-import net.crazysnailboy.mods.villagerinventory.common.network.ConfigSyncMessage;
+import net.crazysnailboy.mods.villagerinventory.common.network.message.ConfigSyncMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.common.config.Configuration;
@@ -22,11 +22,19 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ModConfiguration
 {
 
+	private static class DefaultValues
+	{
+		private static final boolean enableInventoryGui = true;
+		private static final boolean enableDeathDrops = true;
+		private static final boolean requireEmptyHand = false;
+	}
+
+
 	private static Configuration config = null;
 
-	public static boolean enableInventoryGui = true;
-	public static boolean enableDeathDrops = true;
-	public static boolean requireEmptyHand = false;
+	public static boolean enableInventoryGui = DefaultValues.enableInventoryGui;
+	public static boolean enableDeathDrops = DefaultValues.enableDeathDrops;
+	public static boolean requireEmptyHand = DefaultValues.requireEmptyHand;
 
 
 	public static void initializeConfiguration()
@@ -34,8 +42,9 @@ public class ModConfiguration
 		File configFile = new File(Loader.instance().getConfigDir(), VillagerInventoryMod.MODID + ".cfg");
 		config = new Configuration(configFile);
 		config.load();
-		syncFromFile();
+		syncConfig(true, true);
 	}
+
 
 	public static Configuration getConfig()
 	{
@@ -43,35 +52,21 @@ public class ModConfiguration
 	}
 
 
-	public static void syncFromFile()
+	public static void syncConfig(boolean loadConfigFromFile, boolean readFieldsFromConfig)
 	{
-		syncConfig(true, true);
-	}
-
-	public static void syncFromGUI()
-	{
-		syncConfig(false, true);
-	}
+		if (loadConfigFromFile) config.load();
 
 
-	private static void syncConfig(boolean loadConfigFromFile, boolean readFieldsFromConfig)
-	{
-
-		if (loadConfigFromFile)
-		{
-			config.load();
-		}
-
-		Property propEnableInventoryGUI = config.get(Configuration.CATEGORY_GENERAL, "enableInventoryGui", true, "");
-		propEnableInventoryGUI.setLanguageKey("options.enableInventoryGui");
+		Property propEnableInventoryGUI = config.get(Configuration.CATEGORY_GENERAL, "enableInventoryGui", DefaultValues.enableInventoryGui, "");
+		propEnableInventoryGUI.setLanguageKey("villagerinventory.options.enableInventoryGui");
 		propEnableInventoryGUI.setRequiresMcRestart(false);
 
-		Property propRequireEmptyHand = config.get(Configuration.CATEGORY_GENERAL, "requireEmptyHand", false, "");
-		propRequireEmptyHand.setLanguageKey("options.requireEmptyHand");
+		Property propRequireEmptyHand = config.get(Configuration.CATEGORY_GENERAL, "requireEmptyHand", DefaultValues.requireEmptyHand, "");
+		propRequireEmptyHand.setLanguageKey("villagerinventory.options.requireEmptyHand");
 		propRequireEmptyHand.setRequiresMcRestart(false);
 
-		Property propEnableDeathDrops = config.get(Configuration.CATEGORY_GENERAL, "enableDeathDrops", true, "");
-		propEnableDeathDrops.setLanguageKey("options.enableDeathDrops");
+		Property propEnableDeathDrops = config.get(Configuration.CATEGORY_GENERAL, "enableDeathDrops", DefaultValues.enableDeathDrops, "");
+		propEnableDeathDrops.setLanguageKey("villagerinventory.options.enableDeathDrops");
 		propEnableDeathDrops.setRequiresMcRestart(false);
 
 
@@ -104,11 +99,7 @@ public class ModConfiguration
 		propRequireEmptyHand.set(requireEmptyHand);
 		propEnableDeathDrops.set(enableDeathDrops);
 
-		if (config.hasChanged())
-		{
-			config.save();
-		}
-
+		if (config.hasChanged()) config.save();
 	}
 
 
@@ -121,7 +112,7 @@ public class ModConfiguration
 		{
 			if (!event.player.world.isRemote)
 			{
-				VillagerInventoryMod.INSTANCE.getNetwork().sendTo(new ConfigSyncMessage(), (EntityPlayerMP)event.player);
+				VillagerInventoryMod.NETWORK.sendTo(new ConfigSyncMessage(), (EntityPlayerMP)event.player);
 			}
 		}
 
@@ -133,10 +124,10 @@ public class ModConfiguration
 			{
 				if (!event.isWorldRunning() || Minecraft.getMinecraft().isSingleplayer())
 				{
-					syncFromGUI();
+					ModConfiguration.syncConfig(false, true);
 					if (event.isWorldRunning() && Minecraft.getMinecraft().isSingleplayer())
 					{
-						VillagerInventoryMod.INSTANCE.getNetwork().sendToServer(new ConfigSyncMessage());
+						VillagerInventoryMod.NETWORK.sendToServer(new ConfigSyncMessage());
 					}
 				}
 			}

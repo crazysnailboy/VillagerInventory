@@ -1,4 +1,4 @@
-package net.crazysnailboy.mods.villagerinventory.common.network;
+package net.crazysnailboy.mods.villagerinventory.common.network.message;
 
 import io.netty.buffer.ByteBuf;
 import net.crazysnailboy.mods.villagerinventory.VillagerInventoryMod;

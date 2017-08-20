@@ -1,8 +1,11 @@
 #de_DE
 
-options.enableInventoryGui=Inventar-GUI aktivieren
-options.enableInventoryGui.tooltip=Zeigt das Dorfbewohner-Inventar in einem GUI bei einem Umschalt-Rechtsklick
-options.enableDeathDrops=Todesdrops aktivieren
-options.enableDeathDrops.tooltip=Dorfbewohner droppen ihr Inventar, wenn sie von einem Spieler getötet werden
-options.requireEmptyHand=Leere Hand erfordern
-options.requireEmptyHand.tooltip=Öffnen sie das Inventar nur, wenn der Spieler keinen Artikel hält
+villagerinventory.options.enableInventoryGui=Inventar-GUI aktivieren
+villagerinventory.options.enableInventoryGui.tooltip=Zeigt das Dorfbewohner-Inventar in einem GUI bei einem Umschalt-Rechtsklick
+villagerinventory.options.enableDeathDrops=Todesdrops aktivieren
+villagerinventory.options.enableDeathDrops.tooltip=Dorfbewohner droppen ihr Inventar, wenn sie von einem Spieler getötet werden
+villagerinventory.options.requireEmptyHand=Leere Hand erfordern
+villagerinventory.options.requireEmptyHand.tooltip=Öffnen sie das Inventar nur, wenn der Spieler keinen Artikel hält
+
+villagerinventory.key.openVillagerInventoryGui=Open GUI
+villagerinventory.key.categories.general=Villager Inventory Viewer

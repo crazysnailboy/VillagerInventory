@@ -1,8 +1,11 @@
 #zh_CN
 
-options.enableInventoryGui=启用物品栏GUI
-options.enableInventoryGui.tooltip=Shift+左击显示村民物品栏
-options.enableDeathDrops=启用死亡掉落
-options.enableDeathDrops.tooltip=村民被玩家击杀时掉落物品
-options.requireEmptyHand=需要空手
-options.requireEmptyHand.tooltip=玩家需要空手才能打开村民GUI
+villagerinventory.options.enableInventoryGui=启用物品栏GUI
+villagerinventory.options.enableInventoryGui.tooltip=Shift+左击显示村民物品栏
+villagerinventory.options.enableDeathDrops=启用死亡掉落
+villagerinventory.options.enableDeathDrops.tooltip=村民被玩家击杀时掉落物品
+villagerinventory.options.requireEmptyHand=需要空手
+villagerinventory.options.requireEmptyHand.tooltip=玩家需要空手才能打开村民GUI
+
+villagerinventory.key.openVillagerInventoryGui=Open GUI
+villagerinventory.key.categories.general=Villager Inventory Viewer
