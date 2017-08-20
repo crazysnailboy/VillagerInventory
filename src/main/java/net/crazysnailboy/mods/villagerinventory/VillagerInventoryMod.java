@@ -2,10 +2,13 @@ package net.crazysnailboy.mods.villagerinventory;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import net.crazysnailboy.mods.villagerinventory.client.init.ModKeyBindings;
 import net.crazysnailboy.mods.villagerinventory.common.config.ModConfiguration;
-import net.crazysnailboy.mods.villagerinventory.common.network.ConfigSyncMessage;
 import net.crazysnailboy.mods.villagerinventory.common.network.ModGuiHandler;
-import net.crazysnailboy.mods.villagerinventory.common.network.VillagerCareerMessage;
+import net.crazysnailboy.mods.villagerinventory.common.network.message.ConfigSyncMessage;
+import net.crazysnailboy.mods.villagerinventory.common.network.message.EntityFlagMessage;
+import net.crazysnailboy.mods.villagerinventory.common.network.message.VillagerCareerMessage;
+import net.crazysnailboy.mods.villagerinventory.util.EntityUtils;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.InventoryBasic;
@@ -40,33 +43,30 @@ public class VillagerInventoryMod
 	@Instance(MODID)
 	public static VillagerInventoryMod INSTANCE;
 
-	private static SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
-
 	public static final Logger LOGGER = LogManager.getLogger(MODID);
-
-
-	public SimpleNetworkWrapper getNetwork()
-	{
-		return NETWORK;
-	}
+	public static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
 
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		// initialize the configuration
-		ModConfiguration.preInit();
-		if (event.getSide() == Side.CLIENT) ModConfiguration.clientPreInit();
+		ModConfiguration.initializeConfiguration();
+
+		// register the key bindings
+		if (event.getSide() == Side.CLIENT) ModKeyBindings.registerKeyBindings();
 
 		// register the network messages
 		NETWORK.registerMessage(VillagerCareerMessage.MessageHandler.class, VillagerCareerMessage.class, 0, Side.CLIENT);
 		NETWORK.registerMessage(ConfigSyncMessage.MessageHandler.class, ConfigSyncMessage.class, 1, Side.CLIENT);
 		NETWORK.registerMessage(ConfigSyncMessage.MessageHandler.class, ConfigSyncMessage.class, 2, Side.SERVER);
+		NETWORK.registerMessage(EntityFlagMessage.MessageHandler.class, EntityFlagMessage.class, 3, Side.SERVER);
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event)
 	{
+		// register the gui handler
 		NetworkRegistry.INSTANCE.registerGuiHandler(VillagerInventoryMod.INSTANCE, new ModGuiHandler());
 	}
 
@@ -84,7 +84,7 @@ public class VillagerInventoryMod
 		public static void onPlayerEntityInteract(PlayerInteractEvent.EntityInteract event)
 		{
 			// if the villager inventory gui is enabled, if the entity being interacted with is a villager, and if the player is sneaking...
-			if ((ModConfiguration.enableInventoryGui) && (event.getTarget() instanceof EntityVillager) && (event.getEntityPlayer().isSneaking()))
+			if ((ModConfiguration.enableInventoryGui) && (event.getTarget() instanceof EntityVillager) && (EntityUtils.getFlag(event.getEntityPlayer(), 2)))
 			{
 				// if opening the gui requires the player to not be holding anything, check to ensure that the player isn't holding anything
 				if (!ModConfiguration.requireEmptyHand || (ModConfiguration.requireEmptyHand && event.getEntityPlayer().inventory.getCurrentItem() == null))

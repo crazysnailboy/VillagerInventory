@@ -10,9 +10,9 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 
-version = "1.0.3"
+version = "1.0.5"
 group = "net.crazysnailboy.mods.villagerinventory"
-archivesBaseName = "VillagerInventory-1.10.2"
+archivesBaseName = "VillagerInventory-1.10"
 
 sourceCompatibility = targetCompatibility = "1.6"
 compileJava {
