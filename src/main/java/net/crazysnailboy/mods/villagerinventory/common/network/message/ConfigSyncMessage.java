@@ -1,7 +1,6 @@
-package net.crazysnailboy.mods.villagerinventory.common.network;
+package net.crazysnailboy.mods.villagerinventory.common.network.message;
 
 import io.netty.buffer.ByteBuf;
-import net.crazysnailboy.mods.villagerinventory.VillagerInventoryMod;
 import net.crazysnailboy.mods.villagerinventory.common.config.ModConfiguration;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.IThreadListener;
@@ -10,7 +9,6 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.Side;
 
 
 public class ConfigSyncMessage implements IMessage
@@ -24,6 +22,7 @@ public class ConfigSyncMessage implements IMessage
 	public ConfigSyncMessage()
 	{
 	}
+
 
 	@Override
 	public void fromBytes(ByteBuf buf)
@@ -47,16 +46,11 @@ public class ConfigSyncMessage implements IMessage
 
 		private IThreadListener getThreadListener(MessageContext ctx)
 		{
-			try
+			switch (ctx.side)
 			{
-				if (ctx.side == Side.SERVER) return (WorldServer)ctx.getServerHandler().player.world;
-				else if (ctx.side == Side.CLIENT) return Minecraft.getMinecraft();
-				else return null;
-			}
-			catch (Exception ex)
-			{
-				VillagerInventoryMod.LOGGER.catching(ex);
-				return null;
+				case SERVER: return (WorldServer)ctx.getServerHandler().player.world;
+				case CLIENT: return Minecraft.getMinecraft();
+				default: return null;
 			}
 		}
 
@@ -66,7 +60,6 @@ public class ConfigSyncMessage implements IMessage
 			IThreadListener threadListener = getThreadListener(ctx);
 			threadListener.addScheduledTask(new Runnable()
 			{
-
 				@Override
 				public void run()
 				{

@@ -5,40 +5,44 @@ import java.util.ArrayList;
 import java.util.List;
 import net.crazysnailboy.mods.villagerinventory.VillagerInventoryMod;
 import net.crazysnailboy.mods.villagerinventory.client.config.ModGuiConfigEntries;
-import net.crazysnailboy.mods.villagerinventory.common.network.ConfigSyncMessage;
+import net.crazysnailboy.mods.villagerinventory.common.network.message.ConfigSyncMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 
 public class ModConfiguration
 {
 
+	private static class DefaultValues
+	{
+		private static final boolean enableInventoryGui = true;
+		private static final boolean enableDeathDrops = true;
+		private static final boolean requireEmptyHand = false;
+	}
+
+
 	private static Configuration config = null;
 
-	public static boolean enableInventoryGui = true;
-	public static boolean enableDeathDrops = true;
-	public static boolean requireEmptyHand = false;
+	public static boolean enableInventoryGui = DefaultValues.enableInventoryGui;
+	public static boolean enableDeathDrops = DefaultValues.enableDeathDrops;
+	public static boolean requireEmptyHand = DefaultValues.requireEmptyHand;
 
 
-	public static void preInit()
+	public static void initializeConfiguration()
 	{
 		File configFile = new File(Loader.instance().getConfigDir(), VillagerInventoryMod.MODID + ".cfg");
 		config = new Configuration(configFile);
 		config.load();
-		syncFromFile();
-		MinecraftForge.EVENT_BUS.register(new ConfigEventHandler());
-	}
-
-	public static void clientPreInit()
-	{
-		MinecraftForge.EVENT_BUS.register(new ClientConfigEventHandler());
+		syncConfig(true, true);
 	}
 
 
@@ -48,40 +52,21 @@ public class ModConfiguration
 	}
 
 
-	public static void syncFromFile()
+	public static void syncConfig(boolean loadConfigFromFile, boolean readFieldsFromConfig)
 	{
-		syncConfig(true, true);
-	}
-
-	public static void syncFromGUI()
-	{
-		syncConfig(false, true);
-	}
-
-	public static void syncFromFields()
-	{
-		syncConfig(false, false);
-	}
+		if (loadConfigFromFile) config.load();
 
 
-	private static void syncConfig(boolean loadConfigFromFile, boolean readFieldsFromConfig)
-	{
-
-		if (loadConfigFromFile)
-		{
-			config.load();
-		}
-
-		Property propEnableInventoryGUI = config.get(Configuration.CATEGORY_GENERAL, "enableInventoryGui", enableInventoryGui, "");
-		propEnableInventoryGUI.setLanguageKey("options.enableInventoryGui");
+		Property propEnableInventoryGUI = config.get(Configuration.CATEGORY_GENERAL, "enableInventoryGui", DefaultValues.enableInventoryGui, "");
+		propEnableInventoryGUI.setLanguageKey("villagerinventory.options.enableInventoryGui");
 		propEnableInventoryGUI.setRequiresMcRestart(false);
 
-		Property propRequireEmptyHand = config.get(Configuration.CATEGORY_GENERAL, "requireEmptyHand", requireEmptyHand, "");
-		propRequireEmptyHand.setLanguageKey("options.requireEmptyHand");
+		Property propRequireEmptyHand = config.get(Configuration.CATEGORY_GENERAL, "requireEmptyHand", DefaultValues.requireEmptyHand, "");
+		propRequireEmptyHand.setLanguageKey("villagerinventory.options.requireEmptyHand");
 		propRequireEmptyHand.setRequiresMcRestart(false);
 
-		Property propEnableDeathDrops = config.get(Configuration.CATEGORY_GENERAL, "enableDeathDrops", enableDeathDrops, "");
-		propEnableDeathDrops.setLanguageKey("options.enableDeathDrops");
+		Property propEnableDeathDrops = config.get(Configuration.CATEGORY_GENERAL, "enableDeathDrops", DefaultValues.enableDeathDrops, "");
+		propEnableDeathDrops.setLanguageKey("villagerinventory.options.enableDeathDrops");
 		propEnableDeathDrops.setRequiresMcRestart(false);
 
 
@@ -114,41 +99,35 @@ public class ModConfiguration
 		propRequireEmptyHand.set(requireEmptyHand);
 		propEnableDeathDrops.set(enableDeathDrops);
 
-		if (config.hasChanged())
-		{
-			config.save();
-		}
-
+		if (config.hasChanged()) config.save();
 	}
 
 
+	@EventBusSubscriber
 	public static class ConfigEventHandler
 	{
 
 		@SubscribeEvent
-		public void onPlayerLoggedIn(PlayerLoggedInEvent event)
+		public static void onPlayerLoggedIn(PlayerLoggedInEvent event)
 		{
 			if (!event.player.world.isRemote)
 			{
-				VillagerInventoryMod.INSTANCE.getNetwork().sendTo(new ConfigSyncMessage(), (EntityPlayerMP)event.player);
+				VillagerInventoryMod.NETWORK.sendTo(new ConfigSyncMessage(), (EntityPlayerMP)event.player);
 			}
 		}
-	}
 
-	public static class ClientConfigEventHandler
-	{
-
+		@SideOnly(Side.CLIENT)
 		@SubscribeEvent
-		public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
+		public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
 		{
-			if (VillagerInventoryMod.MODID.equals(event.getModID()))
+			if (event.getModID().equals(VillagerInventoryMod.MODID))
 			{
 				if (!event.isWorldRunning() || Minecraft.getMinecraft().isSingleplayer())
 				{
-					syncFromGUI();
+					ModConfiguration.syncConfig(false, true);
 					if (event.isWorldRunning() && Minecraft.getMinecraft().isSingleplayer())
 					{
-						VillagerInventoryMod.INSTANCE.getNetwork().sendToServer(new ConfigSyncMessage());
+						VillagerInventoryMod.NETWORK.sendToServer(new ConfigSyncMessage());
 					}
 				}
 			}
