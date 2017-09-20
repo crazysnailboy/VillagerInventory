@@ -1,6 +1,8 @@
 {
 	"homepage": "https://minecraft.curseforge.com/projects/villager-inventory-viewer/files",
 	"promos": {
+		"1.12.2-latest": "1.0.5",
+		"1.12.2-recommended": "1.0.5",
 		"1.12.1-latest": "1.0.5",
 		"1.12.1-recommended": "1.0.5",
 		"1.12-latest": "1.0.5",
@@ -13,6 +15,9 @@
 		"1.10.2-recommended": "1.0.5",
 		"1.9.4-latest": "1.0.1",
 		"1.9.4-recommended": "1.0.1"
+	},
+	"1.12.2": {
+		"1.0.5": "Initial 1.12.2 release"
 	},
 	"1.12.1": {
 		"1.0.5": "Added keybinding for opening GUI and other tweaks",
